@@ -1,0 +1,198 @@
+###
+//可用于测试未登录
+POST http://localhost:8080/api/UserPage/Admin/updateUser
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+  "user_id": "3",
+  "user_password": "22222",
+  "user_authority": "普通用户"
+}
+//测试管理员请求
+
+###
+POST http://localhost:8080/api/TaskPage/Admin/CloseTask
+token:03108128494faa7f0f6b61ff604ce8fdb29225eaec55c7b36cdfd7da60e078c3b74d414601588c38cf61491f15fde0ea934ce40a843ec0ced66f77deacd1fd20
+Content-Type: application/json
+
+{
+"task_id":"1"
+}
+###
+//登陆测试（管理员）
+POST http://localhost:8081/api/login
+Content-Type: application/json
+
+{
+  "user_name": "12",
+  "user_password": "123456"
+}
+###
+//登陆测试（普通用户）
+POST http://localhost:8080/api/login
+//token: 1d973a3b3405487b94682167be368617725cd0bccbf47741d8cec81febd1b5fe
+//role: fc62cfeda7262f2a7c4883f8727a7e8b58fd0086e35510643e67b6b7cc5d173b1c398866dad1d9fc13a83fcad762cd72
+Content-Type: application/json
+
+{
+"user_name": "33333",
+"user_password": "22222"
+}
+//密码不正确
+//{
+  //"user_name": "33333",
+  //"user_password": "11111"
+//}
+###
+//普通用户尝试请求需要管理员权限的内容
+POST http://localhost:8080/api/InvPage/Admin/addDis
+token: 1d973a3b3405487b94682167be368617725cd0bccbf47741d8cec81febd1b5fe
+role: fc62cfeda7262f2a7c4883f8727a7e8b58fd0086e35510643e67b6b7cc5d173b1c398866dad1d9fc13a83fcad762cd72
+Content-Type: application/json
+
+{
+  "user": {
+    "user_id": 3
+  },
+  "dis_state": "指定",
+  "invigilation": {
+    "inv_id": 1
+  }
+}
+//密码不正确
+//{
+  //"user_name": "33333",
+  //"user_password": "11111"
+//}
+###
+//进行监考分配（教师3监考 监考1）
+POST http://localhost:8080/api/InvPage/Admin/addDis
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+      "user": {
+        "user_id": 3
+      },
+      "dis_state": "指定",
+      "invigilation": {
+        "inv_id": 1
+      }
+}
+###
+//进行监考分配（教师3 监考 监考二（与监考一同时进行））
+POST http://localhost:8080/api/InvPage/Admin/addDis
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+  "user": {
+    "user_id": 3
+  },
+  "dis_state": "不指定",
+  "invigilation": {
+    "inv_id": 2
+  }
+}
+###
+//进行监考分配（教师1 监考 监考一（与监考一同时进行））
+POST http://localhost:8080/api/InvPage/Admin/addDis
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+  "user": {
+    "user_id": 1
+  },
+  "dis_state": "不指定",
+  "invigilation": {
+    "inv_id": 1
+  }
+}
+###
+###
+//查找任务
+GET http://localhost:8080/api/TaskPage/find/1
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+
+###
+//添加任务
+POST http://localhost:8080/api/TaskPage/Admin/addTask
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+    "task_name": "tt1",
+    "task_sum": "11111"
+    //"task_end_time":
+}
+
+###
+//添加用户
+POST http://localhost:8080/api/UserPage/Admin/addUser
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{"user_name":"100000",
+  "user_password": "1000000"
+}
+
+###
+POST http://localhost:8080/api/TaskPage/Admin/updateTask
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{"task_id":"1",
+  "task_name": "tt1"
+}
+
+###
+//关闭任务
+POST http://localhost:8080/api/TaskPage/Admin/CloseTask
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+  "task_id":"1"
+}
+###
+//用户查询本人信息
+GET http://localhost:8080/api/MyPage/user
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+
+###
+
+POST http://localhost:8080/api/MyPage/updateUser
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+  "user_name": "11112",
+  "user_pt": "教师"
+}
+###
+POST http://localhost:8080/api/UserPage/Admin/updateUser
+token: 69a0b4e84122d03f92a3054ec67b2bdb230e9d59c72937c5586101317d8f1ca3
+role: 78d9813ac5deaa74cdcfdf61f11b280b8c3a0833c6c47748573bf8440cee7d0430a6211a0fb96f026f9923c96dfffba2
+Content-Type: application/json
+
+{
+  "user_id":"3",
+  "user_name": "11112",
+  "user_pt": "教师",
+  "user_authority": "管理员"
+}
+
+###
